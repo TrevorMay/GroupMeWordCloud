@@ -10,11 +10,8 @@ r = requests.get(url, params=params)
 
 json_data = r.json()
 
-conversationText = ''
+conversationText = [str(item['text']) for item in json_data['response']['messages']]
 
-for item in json_data['response']['messages']:
-    conversationText += str(item['text'])
-
-wordCloud = WordCloud().generate(conversationText)
+wordCloud = WordCloud().generate(str(conversationText))
 
 wordCloud.to_file("img/firstCloud.png")
